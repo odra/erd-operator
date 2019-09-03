@@ -1,0 +1,9 @@
+apiVersion: erdemo.io/v1alpha1
+kind: EmergencyResponseDemo
+metadata:
+  name: demo
+spec:
+  secretName: erd-credentials
+  selfSignedCerts: true
+  subDomain: "apps.domain.com"
+  masterUrl: "https://master.domain.com:443"

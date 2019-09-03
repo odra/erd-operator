@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: erd-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: erd-operator
+  template:
+    metadata:
+      labels:
+        name: erd-operator
+    spec:
+      serviceAccountName: erd-operator
+      containers:
+        - name: erd-operator
+          image: quay.io/emergencyresponsedemo/erd-operator:latest
+          command:
+          - erd-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "erd-operator"
