@@ -2,16 +2,15 @@ package emergencyresponsedemo
 
 import (
 	"context"
-
 	erdemov1alpha1 "github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1"
+	erdHandlers "github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers"
+	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
-	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
@@ -34,7 +33,11 @@ func Add(mgr manager.Manager) error {
 
 // newReconciler returns a new reconcile.Reconciler
 func newReconciler(mgr manager.Manager) reconcile.Reconciler {
-	return &ReconcileEmergencyResponseDemo{client: mgr.GetClient(), scheme: mgr.GetScheme()}
+	return &ReconcileEmergencyResponseDemo{
+		client:  mgr.GetClient(),
+		config:  mgr.GetConfig(),
+		builder: erdHandlers.NewBuilder(mgr.GetClient()),
+	}
 }
 
 // add adds a new Controller to mgr with r as the reconcile.Reconciler
@@ -51,18 +54,25 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 		return err
 	}
 
-	// Watch for changes to secondary resource Pods and requeue the owner EmergencyResponseDemo
-	secondaryObjects := []runtime.Object{
-		&corev1.Pod{},
-	}
-	for _, secondaryObject := range secondaryObjects {
-		err = c.Watch(&source.Kind{Type: secondaryObject}, &handler.EnqueueRequestForOwner{
-			IsController: true,
-			OwnerType:    &erdemov1alpha1.EmergencyResponseDemo{},
-		})
-		if err != nil {
-			return err
-		}
+	err = c.Watch(&source.Kind{Type : &corev1.Secret{}}, &handler.EnqueueRequestsFromMapFunc{
+		ToRequests:handler.ToRequestsFunc(func(a handler.MapObject) []reconcile.Request {
+			requests := make([]reconcile.Request, 0)
+
+			labels := a.Meta.GetLabels()
+			value, ok := labels["erd"]
+
+			if ok {
+				requests = append(requests, reconcile.Request{NamespacedName: types.NamespacedName{
+					Name: value,
+					Namespace: a.Meta.GetNamespace(),
+				}})
+			}
+
+			return requests
+		}),
+	})
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -76,23 +86,24 @@ type ReconcileEmergencyResponseDemo struct {
 	// This client, initialized using mgr.Client() above, is a split client
 	// that reads objects from the cache and writes to the apiserver
 	client client.Client
-	scheme *runtime.Scheme
+	config *rest.Config
+	builder erdHandlers.Builder
 }
 
 // Reconcile reads that state of the cluster for a EmergencyResponseDemo object and makes changes based on the state read
 // and what is in the EmergencyResponseDemo.Spec
-// TODO(user): Modify this Reconcile function to implement your Controller logic.  This example creates
-// a Pod as an example
 // Note:
 // The Controller will requeue the Request to be processed again if the returned error is non-nil or
 // Result.Requeue is true, otherwise upon completion it will remove the work from the queue.
 func (r *ReconcileEmergencyResponseDemo) Reconcile(request reconcile.Request) (reconcile.Result, error) {
+	var err error
+
 	reqLogger := log.WithValues("Request.Namespace", request.Namespace, "Request.Name", request.Name)
 	reqLogger.Info("Reconciling EmergencyResponseDemo")
 
 	// Fetch the EmergencyResponseDemo instance
 	instance := &erdemov1alpha1.EmergencyResponseDemo{}
-	err := r.client.Get(context.TODO(), request.NamespacedName, instance)
+	err = r.client.Get(context.TODO(), request.NamespacedName, instance)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			// Request object not found, could have been deleted after reconcile request.
@@ -104,54 +115,40 @@ func (r *ReconcileEmergencyResponseDemo) Reconcile(request reconcile.Request) (r
 		return reconcile.Result{}, err
 	}
 
-	// Define a new Pod object
-	pod := newPodForCR(instance)
-
-	// Set EmergencyResponseDemo instance as the owner and controller
-	if err := controllerutil.SetControllerReference(instance, pod, r.scheme); err != nil {
-		return reconcile.Result{}, err
-	}
-
-	// Check if this Pod already exists
-	found := &corev1.Pod{}
-	err = r.client.Get(context.TODO(), types.NamespacedName{Name: pod.Name, Namespace: pod.Namespace}, found)
-	if err != nil && errors.IsNotFound(err) {
-		reqLogger.Info("Creating a new Pod", "Pod.Namespace", pod.Namespace, "Pod.Name", pod.Name)
-		err = r.client.Create(context.TODO(), pod)
+	if instance.DeletionTimestamp != nil && instance.Status.Type != erdemov1alpha1.EmergencyResponseDemoDelete {
+		err = r.setDeleteStatus(instance)
 		if err != nil {
 			return reconcile.Result{}, err
 		}
 
-		// Pod created successfully - don't requeue
+		reqLogger.Info("Deleting ERD instance", "ERD.Namespace", instance.Namespace, "ERD.Name", instance.Name)
+
 		return reconcile.Result{}, nil
-	} else if err != nil {
+	}
+
+	//build handler based on instance status
+	requestHandler, err := r.builder.Build(instance.Status.Type)
+	if err != nil {
+		reqLogger.Error(err, "Failed to build handler")
 		return reconcile.Result{}, err
 	}
 
-	// Pod already exists - don't requeue
-	reqLogger.Info("Skip reconcile: Pod already exists", "Pod.Namespace", found.Namespace, "Pod.Name", found.Name)
-	return reconcile.Result{}, nil
+	//handle request
+	result, err := requestHandler.Handle(instance)
+	if err != nil {
+		reqLogger.Error(err, "Error handling request", "Status", instance.Status.Type)
+		return result, err
+	}
+
+	//end of reconcile request
+	reqLogger.Info("End of reconcile request", "Namespace", instance.Namespace, "Name", instance.Name)
+	return  result, nil
 }
 
-// newPodForCR returns a busybox pod with the same name/namespace as the cr
-func newPodForCR(cr *erdemov1alpha1.EmergencyResponseDemo) *corev1.Pod {
-	labels := map[string]string{
-		"app": cr.Name,
-	}
-	return &corev1.Pod{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      cr.Name + "-pod",
-			Namespace: cr.Namespace,
-			Labels:    labels,
-		},
-		Spec: corev1.PodSpec{
-			Containers: []corev1.Container{
-				{
-					Name:    "busybox",
-					Image:   "busybox",
-					Command: []string{"sleep", "3600"},
-				},
-			},
-		},
-	}
+func (r *ReconcileEmergencyResponseDemo) setDeleteStatus(instance *erdemov1alpha1.EmergencyResponseDemo) error {
+	statusHelper := status.Helper{}
+
+	instance.Status = statusHelper.DeleteStatus()
+
+	return r.client.Status().Update(context.TODO(), instance)
 }

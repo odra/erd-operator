@@ -11,9 +11,11 @@ import (
 type EmergencyResponseDemoConditionType string
 
 var (
+	EmergencyResponseDemoNew    EmergencyResponseDemoConditionType = ""
 	EmergencyResponseDemoInit    EmergencyResponseDemoConditionType = "Init"
 	EmergencyResponseDemoInstall EmergencyResponseDemoConditionType = "Install"
 	EmergencyResponseDemoReady   EmergencyResponseDemoConditionType = "Ready"
+	EmergencyResponseDemoDelete   EmergencyResponseDemoConditionType = "Delete"
 	EmergencyResponseDemoError   EmergencyResponseDemoConditionType = "Error"
 )
 

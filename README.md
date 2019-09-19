@@ -30,7 +30,7 @@ High level components provisioned/managed by this operator:
     * emergency console
 
 ## Dependencies
-
+    
 ### Operators
 
 Third party operators this operator depends on:
@@ -39,7 +39,7 @@ Third party operators this operator depends on:
 * integreatly: https://github.com/integr8ly/integreatly-operator
 * kafka: https://github.com/strimzi/strimzi-kafka-operator
 * monitoring: https://github.com/integr8ly/application-monitoring-operator
-* postgresql: https://github.com/zalando/postgres-operator (?)
+* postgresql: https://github.com/zalando/postgres-operator
 
 ## Deployment
 

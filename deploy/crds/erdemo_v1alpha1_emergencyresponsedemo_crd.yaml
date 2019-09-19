@@ -9,6 +9,8 @@ spec:
     listKind: EmergencyResponseDemoList
     plural: emergencyresponsedemos
     singular: emergencyresponsedemo
+    shortNames:
+      - erd
   scope: Namespaced
   subresources:
     status: {}
@@ -28,8 +30,39 @@ spec:
         metadata:
           type: object
         spec:
+          properties:
+            masterUrl:
+              type: string
+            secretName:
+              type: string
+            selfSignedCerts:
+              type: boolean
+            subDomain:
+              type: string
+          required:
+          - selfSignedCerts
+          - subDomain
+          - masterUrl
           type: object
         status:
+          properties:
+            lastHeartbeatTime:
+              format: date-time
+              type: string
+            lastTransitionTime:
+              format: date-time
+              type: string
+            message:
+              type: string
+            reason:
+              type: string
+            status:
+              type: string
+            type:
+              type: string
+          required:
+          - type
+          - status
           type: object
   version: v1alpha1
   versions:

@@ -2,8 +2,11 @@ module github.com/integr8ly/erd-operator
 
 require (
 	github.com/NYTimes/gziphandler v1.0.1 // indirect
-	github.com/operator-framework/operator-sdk v0.10.1-0.20190828001532-447f0b776ef1
+	github.com/aws/aws-sdk-go v1.24.0
+	github.com/operator-framework/operator-sdk v0.10.1-0.20190911145116-334c667503d0
 	github.com/spf13/pflag v1.0.3
+	github.com/stretchr/testify v1.3.0
+	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.0.0-20190612125737-db0771252981
 	k8s.io/apimachinery v0.0.0-20190612125636-6a5db36e93ad
 	k8s.io/client-go v11.0.0+incompatible
