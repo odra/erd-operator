@@ -11,8 +11,8 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/client-go/rest"
 
-	"github.com/integr8ly/erd-operator/pkg/apis"
-	"github.com/integr8ly/erd-operator/pkg/controller"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/apis"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller"
 
 	"github.com/operator-framework/operator-sdk/pkg/k8sutil"
 	kubemetrics "github.com/operator-framework/operator-sdk/pkg/kube-metrics"

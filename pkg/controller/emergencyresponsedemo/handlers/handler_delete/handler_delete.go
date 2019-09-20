@@ -3,8 +3,8 @@ package handler_delete
 import (
 	"context"
 	"errors"
-	"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1"
-	"github.com/integr8ly/erd-operator/pkg/lib/kube/metahelper"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/kube/metahelper"
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"

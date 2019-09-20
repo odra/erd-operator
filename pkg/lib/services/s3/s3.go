@@ -3,7 +3,7 @@ package s3
 import (
 	"errors"
 	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/integr8ly/erd-operator/pkg/lib/services/s3/backend"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/services/s3/backend"
 )
 
 type S3Service struct {

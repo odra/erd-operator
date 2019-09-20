@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/integr8ly/erd-operator/pkg/lib/services/mapbox"
-	"github.com/integr8ly/erd-operator/pkg/lib/services/s3"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/services/mapbox"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/services/s3"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

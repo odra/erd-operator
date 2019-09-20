@@ -1,4 +1,4 @@
-module github.com/integr8ly/erd-operator
+module github.com/Emergency-Response-Demo/erd-operator
 
 require (
 	github.com/NYTimes/gziphandler v1.0.1 // indirect

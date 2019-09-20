@@ -15,7 +15,7 @@ spec:
       serviceAccountName: erd-operator
       containers:
         - name: erd-operator
-          image: docker.io/odranoel/erd-operator:latest
+          image: quay.io/emergencyresponsedemo/erd-operator:latest
           command:
           - erd-operator
           imagePullPolicy: Always

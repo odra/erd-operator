@@ -1,8 +1,8 @@
 package e2e
 
 import (
-	testCtx "github.com/integr8ly/erd-operator/test/api/ctx"
-	"github.com/integr8ly/erd-operator/test/api/meta"
+	testCtx "github.com/Emergency-Response-Demo/erd-operator/test/api/ctx"
+	"github.com/Emergency-Response-Demo/erd-operator/test/api/meta"
 	"testing"
 )
 

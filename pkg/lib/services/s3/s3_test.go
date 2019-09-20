@@ -1,8 +1,8 @@
 package s3
 
 import (
-	"github.com/integr8ly/erd-operator/pkg/lib/services/s3/backend"
-	"github.com/integr8ly/erd-operator/pkg/lib/services/s3/backend/fake"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/services/s3/backend"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/services/s3/backend/fake"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

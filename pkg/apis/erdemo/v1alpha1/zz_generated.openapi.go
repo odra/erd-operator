@@ -11,9 +11,9 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemo":       schema_pkg_apis_erdemo_v1alpha1_EmergencyResponseDemo(ref),
-		"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoSpec":   schema_pkg_apis_erdemo_v1alpha1_EmergencyResponseDemoSpec(ref),
-		"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoStatus": schema_pkg_apis_erdemo_v1alpha1_EmergencyResponseDemoStatus(ref),
+		"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemo":       schema_pkg_apis_erdemo_v1alpha1_EmergencyResponseDemo(ref),
+		"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoSpec":   schema_pkg_apis_erdemo_v1alpha1_EmergencyResponseDemoSpec(ref),
+		"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoStatus": schema_pkg_apis_erdemo_v1alpha1_EmergencyResponseDemoStatus(ref),
 	}
 }
 
@@ -44,19 +44,19 @@ func schema_pkg_apis_erdemo_v1alpha1_EmergencyResponseDemo(ref common.ReferenceC
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoSpec"),
+							Ref: ref("github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoStatus"),
+							Ref: ref("github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoSpec", "github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoSpec", "github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1.EmergencyResponseDemoStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

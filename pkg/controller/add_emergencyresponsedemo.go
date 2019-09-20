@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo"
 )
 
 func init() {

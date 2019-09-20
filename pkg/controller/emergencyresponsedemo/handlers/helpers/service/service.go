@@ -2,8 +2,8 @@ package service
 
 import (
 	"fmt"
-	"github.com/integr8ly/erd-operator/pkg/lib/helpers"
-	"github.com/integr8ly/erd-operator/pkg/lib/services"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/helpers"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/services"
 	corev1 "k8s.io/api/core/v1"
 )
 

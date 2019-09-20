@@ -2,9 +2,9 @@ package emergencyresponsedemo
 
 import (
 	"context"
-	erdemov1alpha1 "github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1"
-	erdHandlers "github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
+	erdemov1alpha1 "github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1"
+	erdHandlers "github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

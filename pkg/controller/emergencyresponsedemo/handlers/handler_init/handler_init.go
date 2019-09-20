@@ -2,10 +2,10 @@ package handler_init
 
 import (
 	"context"
-	"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/service"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/meta"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/service"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/meta"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"

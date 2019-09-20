@@ -2,10 +2,10 @@ package handler_new
 
 import (
 	"context"
-	"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/meta"
-	"github.com/integr8ly/erd-operator/pkg/lib/kube/metahelper"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/meta"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/kube/metahelper"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 )

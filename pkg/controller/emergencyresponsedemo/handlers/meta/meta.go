@@ -1,7 +1,7 @@
 package meta
 
 import (
-	"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1"
 	corev1 "k8s.io/api/core/v1"
 )
 

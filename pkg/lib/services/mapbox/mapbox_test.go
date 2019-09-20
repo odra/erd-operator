@@ -1,7 +1,7 @@
 package mapbox
 
 import (
-	"github.com/integr8ly/erd-operator/pkg/lib/test/httpmock"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/lib/test/httpmock"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"

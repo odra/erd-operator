@@ -6,7 +6,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"testing"
 
-	"github.com/integr8ly/erd-operator/test/api/meta"
+	"github.com/Emergency-Response-Demo/erd-operator/test/api/meta"
 )
 
 func PrepareContext(t *testing.T, opts meta.WaitOpts) *framework.TestCtx {

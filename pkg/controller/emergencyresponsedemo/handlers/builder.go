@@ -3,12 +3,12 @@ package handlers
 import (
 	"errors"
 	"fmt"
-	"github.com/integr8ly/erd-operator/pkg/apis/erdemo/v1alpha1"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_delete"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_error"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_init"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_new"
-	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_ready"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/apis/erdemo/v1alpha1"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_delete"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_error"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_init"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_new"
+	"github.com/Emergency-Response-Demo/erd-operator/pkg/controller/emergencyresponsedemo/handlers/handler_ready"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
