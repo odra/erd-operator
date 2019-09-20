@@ -58,7 +58,7 @@ kubectl apply \
 -f deploy/role.yaml \
 -f deploy/role_binding.yaml \
 -f deploy/service_account.yaml \
--f deploy/crds/org_v1alpha1_graphback_crd.yaml \
+-f deploy/crds/*crd.yaml \
 -n erd
 ```
 
@@ -71,10 +71,11 @@ kubectl apply -f deploy/operator.yaml -n erd
 Deploy an erd operator secret, see [deploy/erd-secret.yaml](./deploy/erd-secret.yaml) for reference:
 
 ```bash
+#NOTE: make sure all secret fields are set
 kubectl apply -f erd-secret.yaml-n erd
 ```
 
-Deploy an erd custom resource, see [deploy/crds/org_v1alpha1_graphback_crd.yaml](.deploy/crds/org_v1alpha1_graphback_crd.yaml) for reference:
+Deploy an erd custom resource, see [deploy/crds/erdemo_v1alpha1_emergencyresponsedemo_cr.yaml](./deploy/crds/erdemo_v1alpha1_emergencyresponsedemo_cr.yaml) for reference:
 
 ```bash
 kubctl apply -f erd.yaml -n erd
@@ -84,6 +85,7 @@ You can now check your erd resource status by running:
 
 ```bash
 kubectl get erd/demo  -o jsonpath='{.status.type}'-n erd
+kubectl get erd/demo  -o yaml -n erd
 ```
 
 Status should be `Ready` once everything is properly deployed and configured.

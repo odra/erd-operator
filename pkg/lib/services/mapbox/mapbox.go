@@ -10,19 +10,19 @@ const (
 	defaultUrl = "https://api.mapbox.com/geocoding/v5/.json"
 )
 
-type mapBox struct {
-	token string
+type MapBox struct {
+	token      string
 	httpClient *http.Client
 }
 
-func New(token string) *mapBox {
-	return &mapBox{
+func New(token string) *MapBox {
+	return &MapBox{
 		httpClient: &http.Client{},
-		token:token,
+		token:      token,
 	}
 }
 
-func (mp *mapBox) Validate() error {
+func (mp *MapBox) Validate() error {
 	if mp.token == "" {
 		return errors.New("MapBox token is empty")
 	}
@@ -30,7 +30,7 @@ func (mp *mapBox) Validate() error {
 	return nil
 }
 
-func (mp *mapBox) Assert() error {
+func (mp *MapBox) Assert() error {
 	res, err := mp.httpClient.Get(mp.buildUrl())
 	if err != nil {
 		return err
@@ -43,6 +43,6 @@ func (mp *mapBox) Assert() error {
 	return nil
 }
 
-func (mp *mapBox) buildUrl() string {
+func (mp *MapBox) buildUrl() string {
 	return fmt.Sprintf("%s?access_token=%s", defaultUrl, mp.token)
 }

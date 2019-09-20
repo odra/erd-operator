@@ -14,15 +14,15 @@ import (
 )
 
 type handler struct {
-	client client.Client
-	statusHelper meta.StatusBluePrint
+	client        client.Client
+	statusHelper  meta.StatusBluePrint
 	serviceHelper meta.ServiceBluePrint
 }
 
 func New(c client.Client) *handler {
 	return &handler{
-		client: c,
-		statusHelper: &status.Helper{},
+		client:        c,
+		statusHelper:  &status.Helper{},
 		serviceHelper: &service.Helper{},
 	}
 }
@@ -91,7 +91,7 @@ func (h *handler) checkServices(secret *corev1.Secret) error {
 func (h *handler) getSecret(instance *v1alpha1.EmergencyResponseDemo) (*corev1.Secret, error) {
 	secret := &corev1.Secret{}
 
-	err := h.client.Get(context.TODO(), instance.NamespacedName(), secret)
+	err := h.client.Get(context.TODO(), instance.SecretNamespacedName(), secret)
 
 	return secret, err
 }

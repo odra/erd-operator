@@ -11,13 +11,13 @@ import (
 )
 
 type handler struct {
-	client client.Client
+	client       client.Client
 	statusHelper meta.StatusBluePrint
 }
 
 func New(c client.Client) *handler {
 	return &handler{
-		client: c,
+		client:       c,
 		statusHelper: &status.Helper{},
 	}
 }
@@ -60,4 +60,3 @@ func (h *handler) setInitStatus(instance *v1alpha1.EmergencyResponseDemo) error 
 
 	return h.client.Status().Update(context.TODO(), instance)
 }
-

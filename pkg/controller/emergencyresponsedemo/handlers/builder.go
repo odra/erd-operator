@@ -17,7 +17,7 @@ type Builder struct {
 }
 
 func NewBuilder(client client.Client) Builder {
-	return Builder{client:client}
+	return Builder{client: client}
 }
 
 func (b *Builder) Build(status v1alpha1.EmergencyResponseDemoConditionType) (HandlerBluePrint, error) {

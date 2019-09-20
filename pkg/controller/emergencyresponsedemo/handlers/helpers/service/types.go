@@ -1,3 +1,3 @@
 package service
 
-type Helper struct {}
+type Helper struct{}

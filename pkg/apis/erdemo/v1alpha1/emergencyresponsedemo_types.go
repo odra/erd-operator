@@ -11,34 +11,34 @@ import (
 type EmergencyResponseDemoConditionType string
 
 var (
-	EmergencyResponseDemoNew    EmergencyResponseDemoConditionType = ""
+	EmergencyResponseDemoNew     EmergencyResponseDemoConditionType = ""
 	EmergencyResponseDemoInit    EmergencyResponseDemoConditionType = "Init"
 	EmergencyResponseDemoInstall EmergencyResponseDemoConditionType = "Install"
 	EmergencyResponseDemoReady   EmergencyResponseDemoConditionType = "Ready"
-	EmergencyResponseDemoDelete   EmergencyResponseDemoConditionType = "Delete"
+	EmergencyResponseDemoDelete  EmergencyResponseDemoConditionType = "Delete"
 	EmergencyResponseDemoError   EmergencyResponseDemoConditionType = "Error"
 )
 
 // EmergencyResponseDemoSpec defines the desired state of EmergencyResponseDemo
 // +k8s:openapi-gen=true
 type EmergencyResponseDemoSpec struct {
-	SecretName string `json:"secretName,omitempty" description:"Secret name to store erd components"`
-	SelfSignedCerts bool `json:"selfSignedCerts" description:"boolean value to indicate the use of self signed cert"`
-	SubDomain string `json:"subDomain" description:"cluster app sub domain host"`
-	MasterUrl string `json:"masterUrl" description:"cluster master url"`
+	SecretName      string `json:"secretName,omitempty" description:"Secret name to store erd components"`
+	SelfSignedCerts bool   `json:"selfSignedCerts" description:"boolean value to indicate the use of self signed cert"`
+	SubDomain       string `json:"subDomain" description:"cluster app sub domain host"`
+	MasterUrl       string `json:"masterUrl" description:"cluster master url"`
 }
 
 // EmergencyResponseDemoStatus defines the observed state of EmergencyResponseDemo
 // +k8s:openapi-gen=true
 type EmergencyResponseDemoStatus struct {
-	Type EmergencyResponseDemoConditionType `json:"type"`
-	Status v1.ConditionStatus `json:"status"`
+	Type   EmergencyResponseDemoConditionType `json:"type"`
+	Status v1.ConditionStatus                 `json:"status"`
 	// +optional
-	Reason  *string `json:"reason,omitempty" description:"one-word CamelCase reason for the condition's last transition"`
+	Reason *string `json:"reason,omitempty" description:"one-word CamelCase reason for the condition's last transition"`
 	// +optional
 	Message *string `json:"message,omitempty" description:"human-readable message indicating details about last transition"`
 	// +optional
-	LastHeartbeatTime  *metav1.Time `json:"lastHeartbeatTime,omitempty" description:"last time we got an update on a given condition"`
+	LastHeartbeatTime *metav1.Time `json:"lastHeartbeatTime,omitempty" description:"last time we got an update on a given condition"`
 	// +optional
 	LastTransitionTime *metav1.Time `json:"lastTransitionTime,omitempty" description:"last time the condition transit from one status to another"`
 }

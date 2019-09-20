@@ -33,7 +33,13 @@ func (mh *MetaHelper) Reload(obj runtime.Object) error {
 }
 
 func (mh *MetaHelper) Finalizers() []string {
-	return mh.obj.GetFinalizers()
+	finalizers := mh.obj.GetFinalizers()
+
+	if finalizers == nil {
+		return make([]string, 0)
+	}
+
+	return finalizers
 }
 
 func (mh *MetaHelper) HasFinalizer(name string) bool {
@@ -70,5 +76,3 @@ func (mh *MetaHelper) RemoveFinalizer(name string) {
 
 	mh.obj.SetFinalizers(finalizers)
 }
-
-

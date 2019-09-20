@@ -7,6 +7,7 @@ import (
 	"github.com/integr8ly/erd-operator/pkg/controller/emergencyresponsedemo/handlers/helpers/status"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -16,6 +17,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
 	"sigs.k8s.io/controller-runtime/pkg/source"
+	"time"
 )
 
 var log = logf.Log.WithName("controller_emergencyresponsedemo")
@@ -54,8 +56,8 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 		return err
 	}
 
-	err = c.Watch(&source.Kind{Type : &corev1.Secret{}}, &handler.EnqueueRequestsFromMapFunc{
-		ToRequests:handler.ToRequestsFunc(func(a handler.MapObject) []reconcile.Request {
+	err = c.Watch(&source.Kind{Type: &corev1.Secret{}}, &handler.EnqueueRequestsFromMapFunc{
+		ToRequests: handler.ToRequestsFunc(func(a handler.MapObject) []reconcile.Request {
 			requests := make([]reconcile.Request, 0)
 
 			labels := a.Meta.GetLabels()
@@ -63,7 +65,7 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 
 			if ok {
 				requests = append(requests, reconcile.Request{NamespacedName: types.NamespacedName{
-					Name: value,
+					Name:      value,
 					Namespace: a.Meta.GetNamespace(),
 				}})
 			}
@@ -85,8 +87,8 @@ var _ reconcile.Reconciler = &ReconcileEmergencyResponseDemo{}
 type ReconcileEmergencyResponseDemo struct {
 	// This client, initialized using mgr.Client() above, is a split client
 	// that reads objects from the cache and writes to the apiserver
-	client client.Client
-	config *rest.Config
+	client  client.Client
+	config  *rest.Config
 	builder erdHandlers.Builder
 }
 
@@ -126,6 +128,20 @@ func (r *ReconcileEmergencyResponseDemo) Reconcile(request reconcile.Request) (r
 		return reconcile.Result{}, nil
 	}
 
+	//allow just one erd cr per namespace
+	instanceList := &erdemov1alpha1.EmergencyResponseDemoList{}
+	err = r.client.List(context.TODO(), &client.ListOptions{Namespace: request.Namespace}, instanceList)
+	if err != nil {
+		return reconcile.Result{}, err
+	}
+	if len(instanceList.Items) > 0 {
+		err = r.setLimitErrorStatus(instance)
+		if err != nil {
+			return reconcile.Result{}, err
+		}
+		return reconcile.Result{}, nil
+	}
+
 	//build handler based on instance status
 	requestHandler, err := r.builder.Build(instance.Status.Type)
 	if err != nil {
@@ -142,13 +158,34 @@ func (r *ReconcileEmergencyResponseDemo) Reconcile(request reconcile.Request) (r
 
 	//end of reconcile request
 	reqLogger.Info("End of reconcile request", "Namespace", instance.Namespace, "Name", instance.Name)
-	return  result, nil
+	return result, nil
 }
 
 func (r *ReconcileEmergencyResponseDemo) setDeleteStatus(instance *erdemov1alpha1.EmergencyResponseDemo) error {
 	statusHelper := status.Helper{}
 
 	instance.Status = statusHelper.DeleteStatus()
+
+	return r.client.Status().Update(context.TODO(), instance)
+}
+
+func (r *ReconcileEmergencyResponseDemo) setLimitErrorStatus(instance *erdemov1alpha1.EmergencyResponseDemo) error {
+	reason := new(string)
+	*reason = "ERDInstanceLimit"
+
+	message := new(string)
+	*message = "ERD instance limit per namespace reached, max allowed is \"1\""
+
+	lastTime := metav1.NewTime(time.Now())
+
+	instance.Status = erdemov1alpha1.EmergencyResponseDemoStatus{
+		Type:               erdemov1alpha1.EmergencyResponseDemoError,
+		Status:             corev1.ConditionTrue,
+		Reason:             reason,
+		Message:            message,
+		LastHeartbeatTime:  &lastTime,
+		LastTransitionTime: &lastTime,
+	}
 
 	return r.client.Status().Update(context.TODO(), instance)
 }

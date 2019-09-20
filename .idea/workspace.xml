@@ -2,21 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fc5b3a6-b0a9-4dd4-8b35-35615f9c9e66" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/crds/erdemo_v1alpha1_emergencyresponsedemo_crd.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/crds/erdemo_v1alpha1_emergencyresponsedemo_crd.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/erd-secret.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/erd-secret.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/operator.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/operator.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/role.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/role.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/emergencyresponsedemo_helpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/emergencyresponsedemo_helpers.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/emergencyresponsedemo_types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/emergencyresponsedemo_types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/register.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/zz_generated.deepcopy.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/zz_generated.deepcopy.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/zz_generated.openapi.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/apis/erdemo/v1alpha1/zz_generated.openapi.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/emergencyresponsedemo_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/emergencyresponsedemo_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/emergencyresponsedemo_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/emergencyresponsedemo_controller_test.go.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/builder.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/builder.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_error/handler_error.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_error/handler_error.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_init/handler_init.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_init/handler_init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_new/handler_new.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_new/handler_new.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_ready/handler_ready.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/handler_ready/handler_ready.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/service/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/service/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/status/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/status/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/status/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/emergencyresponsedemo/handlers/helpers/status/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/lib/kube/metahelper/metahelper.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/lib/kube/metahelper/metahelper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/lib/services/factory.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/lib/services/factory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/lib/services/mapbox/mapbox.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/lib/services/mapbox/mapbox.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/lib/services/mapbox/mapbox_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/lib/services/mapbox/mapbox_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/lib/services/s3/s3.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/lib/services/s3/s3.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +66,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg/lib/services/s3/backend" />
+      <recent name="$PROJECT_DIR$/pkg/lib/services/s3/s3_backend" />
       <recent name="$PROJECT_DIR$/pkg/lib/services" />
     </key>
   </component>

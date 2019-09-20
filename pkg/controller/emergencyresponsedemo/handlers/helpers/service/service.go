@@ -7,7 +7,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 )
 
-func(h *Helper) CheckServices(secret *corev1.Secret) error {
+func (h *Helper) CheckServices(secret *corev1.Secret) error {
 	var svc services.Service
 	var err error
 
@@ -77,7 +77,7 @@ func (h *Helper) getS3Service(secret *corev1.Secret) (services.Service, error) {
 	return svc, nil
 }
 
-func(h *Helper) validateService(svc services.Service) error {
+func (h *Helper) validateService(svc services.Service) error {
 	var err error
 
 	err = svc.Validate()

@@ -44,5 +44,3 @@ func (sh *Helper) SecretError() v1alpha1.EmergencyResponseDemoStatus {
 		LastTransitionTime: &lastTime,
 	}
 }
-
-

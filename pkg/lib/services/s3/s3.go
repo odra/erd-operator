@@ -2,46 +2,31 @@ package s3
 
 import (
 	"errors"
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/integr8ly/erd-operator/pkg/lib/services/s3/backend"
 )
 
-type s3Service struct {
-	bucket string
-	apiKey string
-	apiToken string
-	region string
+type S3Service struct {
+	bucket  string
+	service client
 }
 
-func New(bucket string, apiKey string, apiToken string, region string) *s3Service {
-	return &s3Service{
-		bucket:   bucket,
-		apiKey:   apiKey,
-		apiToken: apiToken,
-		region: region,
-	}
-}
+func New(bucket string, apiKey string, apiToken string, region string) (*S3Service, error) {
+	svc := &backend.Backend{}
 
-func (s *s3Service) bootstrap() (*session.Session, error) {
-	return session.NewSession(&aws.Config{
-		Region: aws.String(s.region),
-		Credentials: credentials.NewStaticCredentials(s.apiKey, s.apiToken, ""),
-	})
-}
-
-func (s *s3Service) Assert() error {
-	sess, err := s.bootstrap()
+	err := svc.New(region, apiKey, apiToken)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	_, err = s3.New(sess).GetObject(&s3.GetObjectInput{
-		Bucket:                     aws.String(s.bucket),
-		Key:                        aws.String("  "),
-	})
+	return &S3Service{
+		bucket:  bucket,
+		service: svc,
+	}, nil
+}
+
+func (s *S3Service) Assert() error {
+	err := s.service.CheckObject(s.bucket, " ")
 
 	if err == nil {
 		return nil
@@ -55,23 +40,19 @@ func (s *s3Service) Assert() error {
 	return nil
 }
 
-func (s *s3Service) Validate() error {
+func (s *S3Service) Validate() error {
 	if s.bucket == "" {
 		return errors.New("bucket is empty")
 	}
 
-	if s.apiKey == "" {
-		return errors.New("apiKey is empty")
-	}
-
-	if s.apiToken == "" {
-		return errors.New("apiToken is empty")
+	if s.service.IsNil() {
+		return errors.New("service backend is nil")
 	}
 
 	return nil
 }
 
-func (s *s3Service) isValidCode(code int) bool {
+func (s *S3Service) isValidCode(code int) bool {
 	errorCodes := []int{401, 403}
 
 	for _, errorCode := range errorCodes {
